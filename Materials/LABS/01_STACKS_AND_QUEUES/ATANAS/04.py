@@ -10,5 +10,6 @@ while clothes:
 
     while clothes and clothes[-1] <= current_rack_capacity:
         current_rack_capacity -= clothes.pop()
+        
 
 print(racks)

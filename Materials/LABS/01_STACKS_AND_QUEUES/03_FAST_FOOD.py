@@ -1,18 +1,11 @@
 import sys
 from collections import deque
 
-max_order = -sys.maxsize
-
 food_quntity = int(input())
 orders = deque(list(map(int,input().split())))
 
 
-for order in orders:
-    if order > max_order:
-        max_order = order
-
-#check if max order is correct
-print(max_order)
+print(max(orders))
 
 curr_order = 0
 

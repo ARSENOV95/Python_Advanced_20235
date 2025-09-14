@@ -12,6 +12,6 @@ while orders and orders[0] <= quantity_of_food:
     quantity_of_food -= orders.popleft()
 
 if orders:
-    print('Orders left: ' + f"{*orders, },sep=', '")
+    print('Orders left:',*orders)
 else:
     print('Orders complete')
