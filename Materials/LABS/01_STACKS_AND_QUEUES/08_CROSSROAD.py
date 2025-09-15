@@ -11,7 +11,7 @@ line_of_cars = dq([])
 cars_passed = 0
 
 while (make:= input()) != 'END':
-    line_of_cars.appendleft(make)
+    line_of_cars.append(make)
 
 
 while line_of_cars:
@@ -23,8 +23,9 @@ while line_of_cars:
         continue
 
     else:
-        if len(curr_car) > light_duration:
+        if len(curr_car) > light_duration and curr_green:
             curr_green = False
+            continue
 
         time_frame -= len(curr_car)     
 
