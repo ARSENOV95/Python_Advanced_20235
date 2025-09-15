@@ -6,17 +6,21 @@ closing_brackets = ')]}'
 paretheses = []
 
 
-for i in expression:
-    if i in opening_brackets:
+for par in expression:
+    if par in opening_brackets:
         paretheses.append(i)
-    elif i in closing_brackets:
-        if (i == ')' and paretheses[-1] == '(') or\
-           (i == ']' and paretheses[-1] == '[') or\
-           (i == '}' and paretheses[-1] == '{'):
-                     
-            paretheses.pop()
-        else:
+
+
+    elif par in closing_brackets:
+        if not  paretheses:
+            print('NO')
             break
+
+        elif (par == ')' and paretheses[-1] == '(') or\
+           (par == ']' and paretheses[-1] == '[') or\
+           (par == '}' and paretheses[-1] == '{'):        
+            paretheses.pop()
+        
 
 if not paretheses:
     print('YES')
