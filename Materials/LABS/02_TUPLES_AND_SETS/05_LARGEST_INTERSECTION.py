@@ -1,6 +1,6 @@
 n = int(input())
 
-largest = 0
+
 intersection = []
 
 for _ in range(n):
@@ -16,8 +16,7 @@ for _ in range(n):
         else:
             r2 = set(int(x) for x in range(start,end+1))
 
-        if len(r1 & r2) > largest:
-            largest = len(r1 & r2)
+        if len(r1 & r2) > len(intersection):
             intersection = list(r1 & r2)
 
-print(f'Longest intersection is {intersection} with length {largest}')
+print(f'Longest intersection is {intersection} with length {len(intersection)}')

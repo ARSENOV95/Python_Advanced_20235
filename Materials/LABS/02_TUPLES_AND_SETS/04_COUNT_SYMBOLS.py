@@ -6,5 +6,5 @@ for symbol in text:
     if symbol not in symbols.keys():
         symbols[symbol] = text.count(symbol)
 
-for symbol,count in symbols.items():
-    print(f'{symbol}: {count} time/s')
+    print(f'{symbol}: {symbols[symbol]} time/s')
+

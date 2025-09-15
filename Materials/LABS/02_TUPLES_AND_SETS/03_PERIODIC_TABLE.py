@@ -1,10 +1,8 @@
-n = int(input())
-
 elements = set()
 
-for _ in range(n):
+for _ in range(int(input())):
     element = input().split()
-    if len(element) > 1:
+    if len(input().split()) > 1:
         for el in element:
             elements.add(el)
     else:
