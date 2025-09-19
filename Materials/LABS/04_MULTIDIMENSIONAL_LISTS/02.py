@@ -1,0 +1,14 @@
+dimensions = int(input())
+
+matrix = [[int(x) for x in input().split(" ")] for _ in range(dimensions)]
+
+primary = []
+secondary = []
+
+reverse = dimensions - 1
+
+for i in range(dimensions):
+    primary.append(matrix[i][i])
+    secondary.append(matrix[i][reverse - i])
+
+print(abs(sum(primary) - sum(secondary)))
