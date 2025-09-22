@@ -6,7 +6,7 @@ diagonal_sum = 0
 
 for i in range(len(matrix)):
     diagonal_sum += (matrix[i][i])
-
+    
 print(diagonal_sum)
 
 #took a while, to get every tiem diagoanly form a matrix you need to think as if its a grid for every itteraton you should take the index of the nested list and the the ndex matching the index of the nested list

@@ -23,7 +23,7 @@ for row in range(r):
             matrix[row][- 1- col] = string[0]     
 
         string.rotate(-1)
-        #we rotarte he deuqe = Softuni after first row = iSoftun.. second row = iSoftUn.. and so on 
+        #we rotarte he deuqe = Softuni after first row = iSoftUn.. second row = niSoftU.. and so on 
 [print(*row,sep ='') for row in matrix]
 
 
