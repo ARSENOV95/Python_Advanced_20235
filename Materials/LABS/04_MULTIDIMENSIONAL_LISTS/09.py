@@ -7,14 +7,14 @@ def minor(comd :str,r :int,c :int,movements :dict,border):
     return 0 <= r < border and  0 <= c < border
 
 
-def coal_calculator(comd :str,r :int,c :int,movements :dict,r1 :int, c1: int):
+def coal_calculator(comd :str,r :int,c :int,movements :dict):
     if 'left' in comd or 'right' in comd:
-        c1 = c + movements[comd]
-
+        c = c + movements[comd]
     elif 'up' in comd or 'down' in comd:
-        r1 = r + movements[comd]
-    
-    return r1,c1
+        r = r + movements[comd]
+    return r,c
+
+
 
 n = int(input())
 
@@ -41,35 +41,36 @@ for row_idx in range(n):
 #print(minor_position)
 
 monor_movements = {'left': -1,'right':1,'up':-1,'down':1}
-                   
+
+row,col = minor_position
+
 for command in commands:
-    
+    if collected == total_coal:
+        exit(f'You collected all coal! ({row},{col})')
 
 
-    row,col = minor_position
-    row_new = 0
-    col_new = 0
+    #print(row,col,'CURRENT POS BEFORE COMMAND',sep = ' ')
     if not minor(command,row,col,monor_movements,n):
         continue
 
-    row_new,col_new = coal_calculator(command,row,col,monor_movements,row_new,col_new)
+    row,col = coal_calculator(command,row,col,monor_movements)
 
-    if grid[row_new][col_new] == 'c':
+    if grid[row][col] == 'c':
        collected += 1
-       grid[row_new][col_new] == '*'
-       row,col = row_new,col_new
+       grid[row][col] == '*'
+
+
+    #print(row,col,'NEW POS AFTER COMMAND',sep = ' ')
+    #print(collected)
+
+    elif grid[row][col] == 'e':
+        exit(print(f'Game over! ({row},{col})'))
+
     
-    print(row_new,col_new)
-    print(collected)
-
-    #elif grid[row_new][col_new] == 'e':
-    #    exit(print(f'Game over! {row_new},{col_new}'))
-
-    #elif collected == total_coal:
-    #    exit(f'You collected all coal! {row_new},{col_new}')
 
 
-
+else:
+    print(f'{total_coal - collected} pieces of coal left. ({row},{col})')
     
 
 
