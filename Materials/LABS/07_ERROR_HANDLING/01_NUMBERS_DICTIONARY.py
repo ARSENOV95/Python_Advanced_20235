@@ -1,8 +1,6 @@
 numbers_dictionary = {}
 
-line = input() 
-
-while line != "Search": 
+while (line:= input())  != "Search": 
 	number_as_string = line
 	try:
 		number_value = int(input()) 
@@ -10,13 +8,13 @@ while line != "Search":
 	except ValueError:
 		print('The variable number must be an integer')
 		
-	line = input()
-	
 searched = input() 
+
+if not numbers_dictionary:
+	exit('{}')
 
 while searched != "Remove": 	
 	if not numbers_dictionary:
-		#print('The Dictionary is empty, there are no values to lookup')
 		break
 
 	match = numbers_dictionary.get(searched)
@@ -29,11 +27,8 @@ while searched != "Remove":
 	searched = input()
     
 
-
-
 while (to_be_removed:=input()) != "End": 
 	if not numbers_dictionary:
-		#print('The Dictionary is empty, there are no values to lookup')
 		break
 	try: 
 		del numbers_dictionary[to_be_removed]
