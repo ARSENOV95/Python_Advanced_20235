@@ -10,10 +10,12 @@ else:
     for line in numbers:
         line = line.replace('\n','').strip() #removes newline simobls and strip " "
 
-        digit = int(line.find(line.isdigit()))  #converts the number in digits
-        sum_nums += digit
+        if line.isdigit():
+            digit = int(line)  #converts the number in digits
+            sum_nums += digit
 
 finally:
+    numbers.close()
     exit(print(sum_nums))
 
 
