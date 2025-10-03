@@ -23,4 +23,4 @@ with open(f'{f_path}\\text.txt','r') as txt:
         line_n += 1
         output.write(f'Line {line_n} {line} ({chars})({punctuation})\n')
 
-        
+output.close()    
