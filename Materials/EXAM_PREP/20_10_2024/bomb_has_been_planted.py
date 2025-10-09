@@ -1,9 +1,5 @@
 DEFUSE_TIME = 4
 
-def valid_commmand(cmd :str)->bool:
-    commands = ("left","right", "up","down","defuse")
-    return cmd in commands
-
 def in_borders(r,c,mx_r,mx_c):
     return 0 <= r < mx_r and 0 <= c < mx_c
 
@@ -43,9 +39,9 @@ mission_time = 16 #seconds
 while True:
     command = input()
 
-    if not valid_commmand(command):
-        continue
-    
+    if mission_time <= 0:
+        break
+
     if command != 'defuse':
         next_row,next_col,mission_time = movements(command,row,col,mission_time)
 
@@ -61,21 +57,31 @@ while True:
             row,col = next_row,next_col
     
     elif command == 'defuse':
-        if  matrix[row][col] != 'B':
-            mission_time -= 2
-
-        else: 
+        if matrix[row][col] == 'B':
             if mission_time - DEFUSE_TIME >= 0:
                 matrix[row][col] =  matrix[row][col] = 'D'
                 print("Counter-terrorist wins!")
                 print(f"Bomb has been defused: {mission_time - DEFUSE_TIME} second/s remaining.")
-            else:
+
+            else: 
                 matrix[row][col] = 'X'
                 print('Terrorists win!')
                 print("Bomb was not defused successfully!")
                 print(f"Time needed: {abs(mission_time - DEFUSE_TIME)} second/s.")
             break
+        
+        elif  matrix[row][col] != 'B':
+            mission_time -= 2
+            if mission_time < 0:
+                print('Terrorists win!')
+                print("Bomb was not defused successfully!")
+                print(f"Time needed: {0} second/s.")
 
+
+          
+                
+        
+     
 
 [print(*row,sep='') for row in matrix]
  
