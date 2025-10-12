@@ -1,26 +1,24 @@
-import string
+import os
+from string import  punctuation
 
-f_path = 'D:\\Files\\SOFT_UNI\\Python_Advanced_20235\\Materials\\LABS\\08_FILE_HANDLING\\FILES\\02'
+f_path = os.path.dirname(__file__)
+in_name = 'text.txt'
+out_name = 'output.txt'
 
-output = open(f'{f_path}\\output.txt','w')
-
-with open(f'{f_path}\\text.txt','r') as txt:
-
-    line_n = 0
-
-    for line in txt:
-        punctuation = 0
-        
-        chars = 0
+with open(os.path.join(f_path,in_name),'r') as f_in,\
+     open(os.path.join(f_path,out_name),'a') as f_out:
+    
+    for n,line in enumerate(f_in):
+        punct_count = 0
+        chars_count = 0
 
         for char in line:
-            if char in string.punctuation:
-                punctuation += 1
+            if char in punctuation:
+                punct_count += 1
 
             elif char.isalpha():
-                chars += 1
-        
-        line_n += 1
-        output.write(f'Line {line_n} {line} ({chars})({punctuation})\n')
+                chars_count += 1
 
-output.close()    
+        f_out.write(f'Line {n + 1} {line.strip()} ({chars_count})({punct_count})\n')
+
+ 

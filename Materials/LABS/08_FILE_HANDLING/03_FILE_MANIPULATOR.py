@@ -1,30 +1,45 @@
 import os
 
-f_path = 'D:\\Files\\SOFT_UNI\\Python_Advanced_20235\\Materials\\LABS\\08_FILE_HANDLING\\FILES\\03'
+ERR = "An error occurred"
 
-while (command:= input()) != 'End':
-    arguments = command.split("-")
-    f_name = arguments[1]
 
-    if arguments[0] == 'Create':
-        file = open(f'{f_path}\\{f_name}','w') 
-        file.close()
+path = os.path.dirname(__file__) #sets a dinamic path  = the current working dirtoory
 
-    elif arguments[0] == 'Add':
-        content = arguments[2]
+
+while (command:= input()) != 'End':  #decided to use a wallrous operator as  i did not use ti for a while 
+    args = command.split("-")
+    action,f_name = args[:2]
+
+
+
+    if action == 'Create':
+        with open(os.path.join(path,f_name),'w') as file:
+            file.write('')
+
+    elif action == 'Add':      
+        content  =args[2]
+        with open(os.path.join(path,f_name),'a') as file:    
+            file.write(f'{content}\n')
+        
+    
+    elif action == 'Replace':
+        old_string,new_string = args[2:]
+
         try:
-            file = open(f'{f_path}\\{f_name}','a') 
-            file.write(f"{content}\n")
-        except FileNotFoundError:
-            ile = open(f'{f_path}\\{f_name}','w') 
-            file.write(f"{content}\n")
-    elif arguments[0] == 'Replace':
-        old_string,new_string = arguments[2:]
+            with open(os.path.join(path,f_name),'r+') as file_r:
+                reader = file_r.read()
+                data = reader.replace(old_string,new_string)
+
+            with open (os.path.join(path,f_name),'w') as file_w:
+                file_w.write(data)
+
+        except:
+            print(ERR)
+            continue
+
+    elif action == 'Delete':
         try:
-      
-
-
-
-
- 
-
+            os.remove(os.path.join(path,f_name))
+        except:
+            print(ERR)
+            continue
