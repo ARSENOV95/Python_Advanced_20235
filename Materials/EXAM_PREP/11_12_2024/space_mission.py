@@ -1,69 +1,68 @@
-TRIP_COST = 5
-TOTAL_RESOURCES = 100
-REFUEL = 10
+def in_space(r, c, n):
+    return 0 <= r < n and 0 <= c < n
 
-def  movement_logic(move,r,c):
-    if move == 'up':
-        r -= 1
-    elif move == 'down':
-        r += 1
-    elif move == 'left':
-        c -= 1
-    elif move == 'right':
-        c += 1
-    return r,c
 
-def lost_in_space(r,c,size):
-    return 0 <= r < size and 0 <= c < size
+REFUEL_AMOUNT = 10
+RESOURCE_PER_MOVE = 5
 
-grid_size = int(input())
+n = int(input())
 
-matrix = []
+ship_position = None  # locate inital ship postion
+matrix = []  # vraible to store the grid layout
 
-row = 0
-col = 0
+for index in range(n):
+    current_row = input().split()
+    if 'S' in current_row:
+        ship_position = (index, current_row.index('S'))
+    matrix.append(current_row)
 
-for i in range(grid_size):
-    curr_row = input().split()
-    if 'S' in curr_row:
-        row = i
-        col = curr_row.index('S')
-    matrix.append(curr_row)
+initial_resources = 100
 
-current_resource = TOTAL_RESOURCES
+move_mapper = {'up': lambda r, c: (r - 1, c),
+               'down': lambda r, c: (r + 1, c),
+               'left': lambda r, c: (r, c - 1),
+               'right': lambda r, c: (r, c + 1),
+               }
 
 while True:
-    command = input()
+    row = ship_position[0]
+    col = ship_position[1]
 
-    if current_resource < 5:
+    if initial_resources < 5:
+        matrix[row][col] = 'S'
         print("Mission failed! The spaceship was stranded in space.")
         break
+    
+    move = input()
 
-    current_resource -= TRIP_COST
 
-    next_row,next_col = movement_logic(command,row,col)
+    new_row, new_col = move_mapper[move](row, col)
+    initial_resources -= RESOURCE_PER_MOVE  # after locating the new postion the resource is taken to make the move
+    if  matrix[row][col] != 'R':
+        matrix[row][col]  = '.'
+   
 
-    if not lost_in_space(row,col,grid_size):
+    if not in_space(new_row, new_col, n):
+        matrix[row][col] = 'S'
         print("Mission failed! The spaceship was lost in space.")
         break
 
+    if matrix[new_row][new_col] == 'M':
+        initial_resources -= RESOURCE_PER_MOVE
 
-    if matrix[next_row][next_col] == 'M':
-        matrix[row][col]  = '.'
-        current_resource -= TRIP_COST
-        
+    elif matrix[new_row][new_col] == 'R':
+        initial_resources += REFUEL_AMOUNT
+        if initial_resources > 100:
+            initial_resources = 100
+    elif matrix[new_row][new_col] == 'P':
 
-    elif matrix[next_row][next_col] == 'R':
-        refuel = min(REFUEL,(TOTAL_RESOURCES - current_resource))
-        current_resource += refuel
-
-    elif matrix[next_row][next_col] == 'P':
-        print(f"Mission accomplished! The spaceship reached Planet B with {current_resource} resources left.")
+        print(f"Mission accomplished! The spaceship reached Planet B with {initial_resources} resources left.")
         break
 
-    row,col = next_row,next_col
+    ship_position = (new_row,new_col)   
+    
+        
 
-    if matrix[row][col] != 'R':
-        matrix[row][col] = 'S'
 
-[print(*row) for row in matrix]
+    [print(*row, sep=' ') for row in matrix]
+
