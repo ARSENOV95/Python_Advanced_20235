@@ -13,9 +13,9 @@ while monster_armour and soldier_strikes:
         curr_strike -= curr_monster
         
         if curr_strike > 0:
-            if len(soldier_strikes) == 1:
+            if len(soldier_strikes) == 0: #since we pop the last element the list can become empoty if the curr shot value is bigger > 0 and the lsit is 0 we apend the value 
                 soldier_strikes.append(curr_strike)
-            elif len(soldier_strikes) > 1:
+            elif len(soldier_strikes) >= 1: #else if there are values i nthe lsit we add ot th3e last one the value of the shot 
                 soldier_strikes[-1] += curr_strike
         killed_monsters += 1
     
@@ -25,11 +25,13 @@ while monster_armour and soldier_strikes:
         
 
 
-if not monster_armour and soldier_strikes:
+if not monster_armour:
     print("All monsters have been killed!")
-if not soldier_strikes and monster_armour:
+if not soldier_strikes:
     print("The soldier has been defeated.")
 
 print(f"Total monsters killed: {killed_monsters}")
+
+    
 
 

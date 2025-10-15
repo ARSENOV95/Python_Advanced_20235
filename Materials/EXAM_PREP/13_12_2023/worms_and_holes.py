@@ -7,20 +7,19 @@ holes = deque(int(x) for x in input().split())
 matches  = 0
 
 while worms and holes:
-    curr_hole = holes.popleft()
-    curr_worm = worms.pop()
+    curr_hole = holes[0]
+    curr_worm = worms[-1]
 
     if curr_worm == curr_hole:
         matches  += 1
-
+        holes.popleft()
+        worms.pop()
     else:
-        curr_worm -= 3
-        if curr_worm > 0:
-            if curr_worm == curr_hole:
-                matches  += 1
-       
-
-
+        worms[-1] -=3
+        if  worms[-1] <= 0:
+            worms.pop()
+        holes.popleft()
+    
 
 
 
