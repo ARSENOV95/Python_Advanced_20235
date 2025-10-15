@@ -14,7 +14,7 @@ def cookbook(*args):
     for country,recepies in sorted(dishes.items(),key = lambda x: (-len(x[1]),x[0])):
         result += f'{country} cuisine contains {len(recepies)} recipes:\n'
         for recepie in sorted(recepies):
-            result += f' *{recepie[0]} -> Ingredients: {", ".join(recepie[1])}\n'
+            result += f'  * {recepie[0]} -> Ingredients: {", ".join(recepie[1])}\n'
 
     return(result)
 
