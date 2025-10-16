@@ -51,13 +51,12 @@ else:
     print("No presents this Christmas!")
 
 
-
 if materails:
     materails.reverse()
     print(f"Materials left: {', '.join(str(x) for x in materails)}")
 
 if magic:
-    print(f"Magic left: {', '.join(str(x) for x in magic.reverse())}")
+    print(f"Magic left: {', '.join(str(x) for x in magic)}")
 
 for toy,quanity in sorted(presents.items(),key = lambda x: x[0]):
     print(f'{toy}: {quanity}')
