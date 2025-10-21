@@ -19,18 +19,19 @@ commands = int(input())
 
 targets_hit = []
 
-mover = {'up': lambda r, c, n: (r - n, c),
-         'down': lambda r, c, n: (r + n, c),
-         'left': lambda r, c, n: (r, c - n),
-         'right': lambda r, c, n: (r, c + n)
+mover = {'up': (-1,0),
+         'down': (1,0),
+         'left': (0,-1),
+         'right': (0,1)
          }
 
 for command in range(commands):
     curr_command = input().split()
     order, direction, = curr_command[0:2]
     if order == 'move':
-        steps = curr_command[-1]
-        next_row, next_col = mover[direction](shooter[0], shooter[1], int(steps))
+        steps = int(curr_command[-1])
+        next_row = shooter[0] + mover[direction][0] * steps
+        next_col = shooter[1] + mover[direction][1] * steps
 
 
         if not (0 <= next_row < MATRIX_RANGE and 0 <= next_col < MATRIX_RANGE):
@@ -40,8 +41,9 @@ for command in range(commands):
             shooter = (next_row, next_col)
 
     elif order == 'shoot':
-        mvs = 1
-        next_row, next_col = mover[direction](shooter[0], shooter[1],mvs)  # we set next row and col the first time as the next postion form thre shooter
+  
+        next_row = shooter[0] + mover[direction][0]
+        next_col = shooter[1] + mover[direction][1]
 
         while 0 <= next_row < MATRIX_RANGE and 0 <= next_col < MATRIX_RANGE:
             if matrix[next_row][next_col] == 'x':
@@ -49,14 +51,17 @@ for command in range(commands):
                 matrix[next_row][next_col] = '.'
                 break
 
-            next_row, next_col = mover[direction](next_row, next_col,mvs)  # the second time we increment it once again by the last value of the next_row,col
+            next_row  += mover[direction][0]
+            next_col  += mover[direction][1]
+        
+        if targets == 0:
+            break
 
-        if len(targets_hit) == targets:  #important we need to cosider that htere are no more tatrgets to shoot and breka the loop
-           print(f'Training completed! All {targets} targets hit.')
-           break
 
 
-if len(targets_hit) < targets:
+if len(targets_hit) == targets:
+    print(f'Training completed! All {targets} targets hit.')
+else:
     print(f'Training not completed! {targets - len(targets_hit)} targets left.')
 
 if targets_hit:
